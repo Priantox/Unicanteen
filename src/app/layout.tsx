@@ -15,7 +15,10 @@ import {
 } from "@clerk/nextjs";
 
 // All Components
-import NavBarNoLogged from "../components/NavBarNoLogged";
+import HomeNavBar from "../components/HomeNavBar";
+import HomeSideBar from "@/components/HomeSideBar";
+// Import ContextProvider from its module (update the path if needed)
+// Update the import path if the ContextProvider is located elsewhere, for example:
 
 const exo = Exo({
     subsets: ["latin"],
@@ -36,8 +39,19 @@ export default function RootLayout({
         <ClerkProvider>
             <html lang="en">
                 <body className={exo.className}>
-                    <NavBarNoLogged />
-                    {children}
+                    <HomeNavBar />
+                    <div className="flex">
+                        <HomeSideBar />
+                        <div className="w-full overflow-x-auto bg-gray-200">
+                            <div className="sm:h-[calc(99vh-60px] overflow auto)">
+                                <div className="w-full flex justify-center mx-auto overflow-auto h-[calc(100-vh-120px)] overflow-y-auto relative">
+                                    <div className="w-full md:max-w-6xl">
+                                        {children}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </body>
             </html>
         </ClerkProvider>

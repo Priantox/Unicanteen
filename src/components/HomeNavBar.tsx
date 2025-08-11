@@ -3,15 +3,19 @@ import React from "react";
 
 // Notification Icon add
 import { BellIcon } from "@heroicons/react/24/outline";
-import { SignedOut, SignInButton, SignUpButton } from "@clerk/nextjs";
+import {
+    SignedIn,
+    SignedOut,
+    SignInButton,
+    SignUpButton,
+    UserButton,
+} from "@clerk/nextjs";
 
-const NavBarNoLogged = () => {
+const HomeNavBar = () => {
     return (
         <header className="flex justify-between p-4 bg-amber-100">
-            <div className="text-2xl font-bold">
-              <Link href="/">
-                UNICANTEEN LOGO
-              </Link>
+            <div className="text-2xl font-bold py-1">
+                <Link href="/">UNICANTEEN LOGO</Link>
             </div>
             <div>
                 {/* Search Bar */}
@@ -38,10 +42,22 @@ const NavBarNoLogged = () => {
                             </SignUpButton>
                         </SignedOut>
                     </li>
+                    <li>
+                        <SignedIn>
+                            <UserButton
+                                appearance={{
+                                    elements: {
+                                        userButtonAvatarBox: "h-48 w-48",
+                                    },
+                                }}
+                                showName={true}
+                            />
+                        </SignedIn>
+                    </li>
                 </ul>
             </nav>
         </header>
     );
 };
 
-export default NavBarNoLogged;
+export default HomeNavBar;

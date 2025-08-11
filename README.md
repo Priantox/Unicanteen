@@ -38,3 +38,12 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 
 // HeroIcons
 npm install @heroicons/react
+npm install @clerk/nextjs
+npm install lucide-react
+npm install tailwind-merge
+npm install @radix-ui/react-tooltip
+npm install next-themes
+
+
+npx shadcn@latest init
+button,tooltip,dropdown menu
