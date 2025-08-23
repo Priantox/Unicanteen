@@ -120,7 +120,25 @@
   * {
     @apply border-border outline-ring/50;
   }
+  
+  html,
+  body {
+    @apply h-full overflow-hidden;
+  }
+
   body {
     @apply bg-background text-foreground;
   }
+
+  /* Add scrolling container styles */
+  .scroll-container {
+    @apply h-full overflow-y-auto overflow-x-hidden;
+  }
+
+  /* Add smooth scrolling to the whole document */
+  :root {
+    scroll-behavior: smooth;
+  }
 }
+
+

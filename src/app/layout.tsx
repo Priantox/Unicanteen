@@ -40,17 +40,11 @@ export default function RootLayout({
             <html lang="en">
                 <body className={exo.className}>
                     <HomeNavBar />
-                    <div className="flex">
+                    <div className="flex h-[calc(100vh-64px)]">
                         <HomeSideBar />
-                        <div className="w-full overflow-x-auto bg-gray-200">
-                            <div className="sm:h-[calc(99vh-60px] overflow auto)">
-                                <div className="w-full flex justify-center mx-auto overflow-auto h-[calc(100-vh-120px)] overflow-y-auto relative">
-                                    <div className="w-full md:max-w-6xl">
-                                        {children}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <main className="flex-1 bg-gray-50 dark:bg-gray-900 overflow-auto">
+                            {children}
+                        </main>
                     </div>
                 </body>
             </html>
