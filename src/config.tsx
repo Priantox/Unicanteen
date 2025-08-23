@@ -28,19 +28,19 @@ export const NavItems = () => {
                     subItems: [
                         {
                             name: "OlympiaCafe",
-                            href: "/olympia",
+                            href: "/olympia-cafe",
                             icon: <Utensils size={18} />,
                             active: isNavItemActive(pathname, "/olympia-cafe"),
                         },
                         {
                             name: "KhansKitchen",
-                            href: "/khans",
+                            href: "/khans-kitchen",
                             icon: <Utensils size={18} />,
                             active: isNavItemActive(pathname, "/khans-kitchen"),
                         },
                         {
                             name: "NeptuneCafe",
-                            href: "/neptune",
+                            href: "/neptune-cafe",
                             icon: <Utensils size={18} />,
                             active: isNavItemActive(pathname, "/neptune-cafe"),
                         },
