@@ -3,7 +3,10 @@ import { NextResponse } from "next/server";
 import { RoleType } from "./types/roles";
 
 const publicRoutes = ["/", "/sign-in", "/sign-up","/olympia-cafe","/neptune-cafe","/khans-kitchen"];
-const canteenProtectedRoute = createRouteMatcher(["/canteen(.*)"]);
+const IsCanteenProtectedRoute = createRouteMatcher(["/canteen(.*)"]);
+const IsCustomerProtectedRoute = createRouteMatcher(["/customer(.*)"]);
+const IsDeliveryProtectedRoute = createRouteMatcher(["/delivery(.*)"]);
+
 
 export default clerkMiddleware(async (auth, request) => {
     const data = await auth();
@@ -39,8 +42,20 @@ export default clerkMiddleware(async (auth, request) => {
         }
     }
 
-    if (canteenProtectedRoute(request)) {
+    if (IsCanteenProtectedRoute(request)) {
         if (role !== "CANTEEN_OWNER") {
+            return NextResponse.redirect(new URL("/", request.url));
+        }
+    }
+
+    if (IsCustomerProtectedRoute(request)) {
+        if (role !== "CUSTOMER") {
+            return NextResponse.redirect(new URL("/", request.url));
+        }
+    }
+
+    if (IsDeliveryProtectedRoute(request)) {
+        if (role !== "DELIVERY_PERSON") {
             return NextResponse.redirect(new URL("/", request.url));
         }
     }
@@ -54,121 +69,3 @@ export const config = {
         "/(api|trpc)(.*)",
     ],
 };
-// import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
-// import { NextResponse } from "next/server";
-// import { RoleType } from "./types/roles";
-
-// import { PrismaClient } from "./generated/prisma";
-// const prisma = new PrismaClient();
-
-
-// const canteenProtectedRoute = createRouteMatcher(["/canteen(.*)"]);
-
-// export default clerkMiddleware(async (auth, request) => {
-//     const data = await auth();
-//     const path = new URL(request.url).pathname;
-
-//     // Skip role check for API routes
-//     if (path.startsWith('/api')) {
-//         return NextResponse.next();
-//     }
-
-//     let role: RoleType = "DEFAULT";
-    
-//     if (data.userId) {
-//         try {
-//             const user = await prisma.user.findUnique({
-//                 where: { id: data.userId },
-//                 select: { userRole: true }
-//             });
-//             console.log("User Data: ", user);
-//             role = user?.userRole || "DEFAULT";
-//         } catch (error) {
-//             console.error("Error fetching role in middleware:", error);
-//         }
-//     }
-
-//     console.log(
-//         "Middleware - User Role:",
-//         role,
-//         "\nUser ID:",
-//         data.userId,
-//         "\nPath:",
-//         path
-//     );
-
-//     if (canteenProtectedRoute(request)) {
-//         console.log("Middleware - Canteen Protected Route");
-//         if (role !== "CANTEEN_OWNER") {
-//             console.log("Middleware - Access Denied to Canteen Route");
-//             return NextResponse.redirect(new URL("/", request.url));
-//         }
-//     }
-
-//     return NextResponse.next();
-// });
-
-// export const config = {
-//     matcher: [
-//         "/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)",
-//         "/(api|trpc)(.*)",
-//     ],
-// };
-
-// // import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
-// // import { getRole } from "./actions/user/getRole";
-// // import { NextResponse } from "next/server";
-// // import { RoleType } from "./types/roles";
-
-// // // Public routes that don't require authentication
-// // // const publicRoutes = createRouteMatcher([
-// // //     "/",
-// // //     "/olympia-cafe",
-// // //     "/khans-kitchen",
-// // //     "/neptune-cafe",
-// // // ]);
-// // const canteenProtectedRoute = createRouteMatcher(["/canteen(.*)"]);
-
-// // export  default  clerkMiddleware(async (auth, request) => {
-// //     const data = await auth();
-// //     // const role: RoleType = await getRole();
-// //     const path = new URL(request.url).pathname;
-    
-
-// //     // let role : RoleType = "DEFAULT";
-// //     // if (data.userId) {
-// //     //   console.log("Getting role to middleware-")
-// //     //     role = await getRole();
-// //     // }
-// //     const role: RoleType = await getRole();
-
-// //     console.log(
-// //         "Middleware - User Role:",
-// //         role,
-// //         "\nUser ID:",
-// //         data.userId,
-// //         "\nPath:",
-// //         path
-// //     );
-
-// //     if (!data.userId) {
-// //         console.log("Middleware - No User ID");
-// //     }
-
-// //     if (canteenProtectedRoute(request)) {
-// //         console.log("Middleware - Canteen Protected Route");
-// //         if (role !== "CANTEEN_OWNER") {
-// //             console.log("Middleware - Access Denied to Canteen Route");
-// //             return NextResponse.redirect(new URL("/", request.url));
-// //         }
-// //     }
-
-// //     return NextResponse.next();
-// // });
-
-// // export const config = {
-// //     matcher: [
-// //         "/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)",
-// //         "/(api|trpc)(.*)",
-// //     ],
-// // };

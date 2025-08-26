@@ -91,6 +91,113 @@ export const HomeNavItems = () => {
     ];
 };
 
+// Delivery SideBar Items
+export const DeliNavItems = () => {
+    const pathname = usePathname();
+    function isNavItemActive(pathname: string, nav: string) {
+        return pathname.includes(nav);
+    }
+
+    return [
+        {
+            section: "DASHBOARD",
+            items: [
+                {
+                    name: "Orders",
+                    href: "/delivery/orders",
+                    icon: <FileText size={20} />,
+                    active: isNavItemActive(pathname, "/delivery/orders"),
+                },
+                {
+                    name: "Tracking",
+                    href: "/delivery/tracking",
+                    icon: <User size={20} />,
+                    active: isNavItemActive(pathname, "/delivery/tracking"),
+                },
+            ],
+        },
+        {
+            section: "SETTINGS",
+            items: [
+                {
+                    name: "Language",
+                    href: "/language",
+                    icon: <Languages size={20} />,
+                    active: isNavItemActive(pathname, "/language"),
+                },
+                {
+                    name: "Settings",
+                    href: "/settings",
+                    icon: <Settings size={20} />,
+                    active: isNavItemActive(pathname, "/settings"),
+                },
+            ],
+        },
+    ];
+};
+// Customer SideBar Items
+export const CustomerNavItems = () => {
+    const pathname = usePathname();
+    function isNavItemActive(pathname: string, nav: string) {
+        return pathname.includes(nav);
+    }
+
+    return [
+        {
+            section: "DASHBOARD",
+            items: [
+                {
+                    name: "Home",
+                    href: "/customer-home/home",
+                    icon: <Home size={20} />,
+                    active: pathname === "/customer-home/home",
+                },
+                {
+                    name: "Orders",
+                    href: "/customer-home/orders",
+                    icon: <FileText size={20} />,
+                    active: isNavItemActive(pathname, "/customer-home/orders"),
+                },
+            ],
+        },
+        {
+            section: "MANAGEMENT",
+            items: [
+                {
+                    name: "Menu",
+                    href: "/customer-home/menu",
+                    icon: <Utensils size={20} />,
+                    active: isNavItemActive(pathname, "/customer-home/menu"),
+                },
+                {
+                    name: "Reviews",
+                    href: "/customer-home/reviews",
+                    icon: <User size={20} />,
+                    active: isNavItemActive(pathname, "/customer-home/reviews"),
+                },
+            ],
+        },
+        {
+            section: "SETTINGS",
+            items: [
+                {
+                    name: "Language",
+                    href: "/customer-home/language",
+                    icon: <Languages size={20} />,
+                    active: isNavItemActive(pathname, "/customer-home/language"),
+                },
+                {
+                    name: "Settings",
+                    href: "/customer-home/settings",
+                    icon: <Settings size={20} />,
+                    active: isNavItemActive(pathname, "/customer-home/settings"),
+                },
+            ],
+        },
+    ];
+};
+
+
 // Canteen SideBar Items
 export const CanNavItems = () => {
     const pathname = usePathname();
@@ -111,9 +218,9 @@ export const CanNavItems = () => {
                 },
                 {
                     name: "Orders",
-                    href: "/orders",
+                    href: "/canteen-home/orders",
                     icon: <FileText size={20} />,
-                    active: isNavItemActive(pathname, "/orders"),
+                    active: isNavItemActive(pathname, "/canteen-home/orders"),
                 },
             ],
         },
@@ -122,15 +229,15 @@ export const CanNavItems = () => {
             items: [
                 {
                     name: "Menu",
-                    href: "/menu",
+                    href: "/canteen-home/menu",
                     icon: <Utensils size={20} />,
-                    active: isNavItemActive(pathname, "/menu"),
+                    active: isNavItemActive(pathname, "/canteen-home/menu"),
                 },
                 {
                     name: "Reviews",
-                    href: "/reviews",
+                    href: "/canteen-home/reviews",
                     icon: <User size={20} />,
-                    active: isNavItemActive(pathname, "/reviews"),
+                    active: isNavItemActive(pathname, "/canteen-home/reviews"),
                 },
             ],
         },
@@ -139,15 +246,15 @@ export const CanNavItems = () => {
             items: [
                 {
                     name: "Language",
-                    href: "/language",
+                    href: "/canteen-home/language",
                     icon: <Languages size={20} />,
-                    active: isNavItemActive(pathname, "/language"),
+                    active: isNavItemActive(pathname, "/canteen-home/language"),
                 },
                 {
                     name: "Settings",
-                    href: "/settings",
+                    href: "/canteen-home/settings",
                     icon: <Settings size={20} />,
-                    active: isNavItemActive(pathname, "/settings"),
+                    active: isNavItemActive(pathname, "/canteen-home/settings"),
                 },
             ],
         },
