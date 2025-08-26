@@ -10,14 +10,14 @@ import {
     TooltipProvider,
     TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { NavItems } from "@/config";
+import { CanNavItems } from "@/config";
 import { cn } from "@/lib/utils";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
-import { ThemeToggle } from "./theme-toggle";
+import { ThemeToggle } from "../theme-toggle";
 
-export default function HomeSideBar() {
-    const navSections = NavItems();
+export default function CanSideBar() {
+    const navSections = CanNavItems();
     const [isSidebarExpanded, setIsSidebarExpanded] = useState(() => {
         if (typeof window !== "undefined") {
             const saved = window.localStorage.getItem("sidebarExpanded");
@@ -70,7 +70,7 @@ export default function HomeSideBar() {
                                             active={item.active}
                                             isSidebarExpanded={isSidebarExpanded}
                                         />
-                                        {item.subItems && isSidebarExpanded && (
+                                        {/* {item.subItems && isSidebarExpanded && (
                                             <div className="ml-6 flex flex-col space-y-1">
                                                 {item.subItems.map((sub, subIdx) => (
                                                     <SideNavItem
@@ -83,7 +83,7 @@ export default function HomeSideBar() {
                                                     />
                                                 ))}
                                             </div>
-                                        )}
+                                        )} */}
                                     </Fragment>
                                 ))}
                             </div>

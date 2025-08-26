@@ -1,6 +1,6 @@
 generator client {
   provider = "prisma-client-js"
-  // output   = "../src/generated/prisma"
+  output   = "../src/generated/prisma"
 }
 
 datasource db {
@@ -9,10 +9,11 @@ datasource db {
 }
 
 enum RoleType {
-  CANTEEN_ADMIN
+  CANTEEN_OWNER
   CUSTOMER
-  DELIVERY
+  DELIVERY_PERSON
   ADMIN
+  DEFAULT
 }
 
 model User {

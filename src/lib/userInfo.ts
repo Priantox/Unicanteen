@@ -10,12 +10,10 @@ export type UserInfo = {
   studentId: string | null;
 };
 
-export async function getUserRole(userId: string): Promise<UserInfo | null> {
+export async function getUserInfo(userId: string): Promise<UserInfo | null> {
   try {
     const user = await prisma.user.findUnique({
-      where: {
-        id: userId,
-      },
+      where: { id: userId },
       select: {
         id: true,
         email: true,
@@ -29,17 +27,17 @@ export async function getUserRole(userId: string): Promise<UserInfo | null> {
       return null;
     }
 
-    return user;
+    return {
+      id: user.id,
+      email: user.email,
+      name: user.name,
+      userRole: user.userRole,
+      studentId: user.studentId,
+    };
   } catch (error) {
-    console.error('Error fetching user roles:', error);
-    throw new Error('Failed to fetch user roles');
+    console.error("Error fetching user info:", error);
+    return null;
   } finally {
     await prisma.$disconnect();
   }
-}
-
-// Helper function to check if user has specific role
-export function hasRole(user: UserInfo | null, role: RoleType): boolean {
-  if (!user) return false;
-  return user.userRole === role;
 }

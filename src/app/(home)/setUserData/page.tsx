@@ -1,6 +1,5 @@
 /*
 model User {
-
   id        String  @id // Clerk user.id
   email     String? @unique
   name      String?
@@ -12,6 +11,7 @@ model User {
   updatedAt DateTime @updatedAt
 }
 */
+
 import { currentUser } from '@clerk/nextjs/server';
 import React from 'react'
 import { setUserDataToDB, UserData } from '@/actions/users/setUserData';
@@ -27,7 +27,7 @@ const SetUserDataFromClerkToDB =  async () => {
         email: user.emailAddresses[0]?.emailAddress || '',
         name: user.firstName || null,
         phone: user.phoneNumbers[0]?.phoneNumber || null,
-        role: 'CUSTOMER', 
+        role: "DEFAULT", // Default role
         studentId: null, 
     };
 
