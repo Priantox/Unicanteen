@@ -13,10 +13,10 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { ThemeToggle } from "../theme-toggle";
 
 // Import customer navigation items from config
-import { CustomerNavItems } from "@/config";
+import { CustomerSideItems } from "@/config";
 
 export default function CusSideBar() {
-    const navSections = CustomerNavItems();
+    const navSections = CustomerSideItems();
     const [isSidebarExpanded, setIsSidebarExpanded] = useState(() => {
         if (typeof window !== "undefined") {
             const saved = window.localStorage.getItem("sidebarExpanded");

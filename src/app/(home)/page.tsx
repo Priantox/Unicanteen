@@ -1,23 +1,51 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ChevronLeft, ChevronRight, Star, Utensils } from "lucide-react";
-import useEmblaCarousel from 'embla-carousel-react';
-import Autoplay from 'embla-carousel-autoplay';
+import useEmblaCarousel from "embla-carousel-react";
+import Autoplay from "embla-carousel-autoplay";
+// import { useRouter } from "next/navigation";
 
 const Home = () => {
+
+
+    // const router = useRouter();
+    // useEffect(() => {
+
+    //     const checkAndRedirect = async () => {
+    //         try {
+    //             const response = await fetch('/api/auth/role');
+    //             const data = await response.json();
+    //             console.log("Role from API in Home:", data.role);
+                
+    //             if (data.role === "CUSTOMER") {
+    //                 router.push("/customer-home");
+    //             } else if (data.role === "CANTEEN_OWNER") {
+    //                 router.push("/canteen-home");
+    //             } else if (data.role === "DELIVERY_PERSON") {
+    //                 router.push("/delivery-home");
+    //             }
+    //         } catch (error) {
+    //             console.error("Error fetching role:", error);
+    //         }
+    //     };
+
+    //     checkAndRedirect();
+    // // eslint-disable-next-line react-hooks/exhaustive-deps
+    // }, []); // No error bruh
+
     const [emblaRef, emblaApi] = useEmblaCarousel(
-        { 
-            align: 'center',
-            loop: true 
+        {
+            align: "center",
+            loop: true,
         },
         [
             Autoplay({
                 delay: 5000,
                 stopOnInteraction: false,
-                stopOnMouseEnter: true
-            })
+                stopOnMouseEnter: true,
+            }),
         ]
     );
 
@@ -35,21 +63,21 @@ const Home = () => {
             image: "/images/pizza.jpg",
             price: "450",
             description: "Fresh from our oven",
-            shop: "Neptune Cafe"
+            shop: "Neptune Cafe",
         },
         {
             name: "Special Biryani",
             image: "/images/biryani.jpg",
             price: "180",
             description: "Authentic flavor",
-            shop: "Khans Kitchen"
+            shop: "Khans Kitchen",
         },
         {
             name: "Double Beef Burger",
             image: "/images/burger.jpg",
             price: "250",
             description: "With extra cheese",
-            shop: "Olympia Cafe"
+            shop: "Olympia Cafe",
         },
     ];
 
@@ -60,7 +88,7 @@ const Home = () => {
             price: "120",
             shop: "Olympia Cafe",
             rating: "4.5",
-            available: true
+            available: true,
         },
         // Add more items as needed
     ];
@@ -68,7 +96,7 @@ const Home = () => {
     const canteens = [
         {
             name: "Olympia Cafe",
-            image: "/images/olympia.jpg", 
+            image: "/images/olympia.jpg",
             location: "North Campus",
             rating: "4.5",
             href: "/olympia-cafe",
@@ -111,18 +139,24 @@ const Home = () => {
                         Featured Items
                     </h2>
                     <div className="relative">
-                        <div className="overflow-hidden rounded-xl" ref={emblaRef}>
+                        <div
+                            className="overflow-hidden rounded-xl"
+                            ref={emblaRef}
+                        >
                             <div className="flex">
                                 {featuredItems.map((item, index) => (
-                                    <div key={index} className="flex-[0_0_100%] min-w-0">
+                                    <div
+                                        key={index}
+                                        className="flex-[0_0_100%] min-w-0"
+                                    >
                                         <div className="relative h-[400px] rounded-xl overflow-hidden">
-                                            <Image
+                                            {/* <Image
                                                 src={item.image}
                                                 alt={item.name}
                                                 fill
                                                 className="object-cover"
                                                 priority={index === 0}
-                                            />
+                                            /> */}
                                             <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
                                             <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
                                                 <p className="text-lg font-medium text-gray-200">
@@ -143,7 +177,7 @@ const Home = () => {
                                 ))}
                             </div>
                         </div>
-                        
+
                         {/* Navigation Buttons */}
                         <button
                             onClick={scrollPrev}
@@ -167,7 +201,10 @@ const Home = () => {
                     </h2>
                     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                         {popularItems.map((item, index) => (
-                            <div key={index} className="bg-white dark:bg-gray-800 rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-shadow">
+                            <div
+                                key={index}
+                                className="bg-white dark:bg-gray-800 rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-shadow"
+                            >
                                 <div className="relative h-40">
                                     <Image
                                         src={item.image}
@@ -177,7 +214,9 @@ const Home = () => {
                                     />
                                     {!item.available && (
                                         <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
-                                            <span className="text-white font-medium">Sold Out</span>
+                                            <span className="text-white font-medium">
+                                                Sold Out
+                                            </span>
                                         </div>
                                     )}
                                 </div>
@@ -192,7 +231,10 @@ const Home = () => {
                                             </p>
                                         </div>
                                         <div className="flex items-center">
-                                            <Star size={14} className="text-yellow-400" />
+                                            <Star
+                                                size={14}
+                                                className="text-yellow-400"
+                                            />
                                             <span className="ml-1 text-sm text-gray-600 dark:text-gray-300">
                                                 {item.rating}
                                             </span>
@@ -219,12 +261,12 @@ const Home = () => {
                         >
                             <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden transition-transform duration-200 hover:scale-105">
                                 <div className="relative h-48 w-full">
-                                    <Image
+                                    {/* <Image
                                         src={canteen.image}
                                         alt={canteen.name}
                                         fill
                                         className="object-cover"
-                                    />
+                                    /> */}
                                     {/* Status Badge */}
                                     <div className="absolute top-4 right-4">
                                         <span

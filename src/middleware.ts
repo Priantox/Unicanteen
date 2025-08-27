@@ -6,66 +6,61 @@ const publicRoutes = ["/", "/sign-in", "/sign-up","/olympia-cafe","/neptune-cafe
 const IsCanteenProtectedRoute = createRouteMatcher(["/canteen(.*)"]);
 const IsCustomerProtectedRoute = createRouteMatcher(["/customer(.*)"]);
 const IsDeliveryProtectedRoute = createRouteMatcher(["/delivery(.*)"]);
+const isAdminRoute = createRouteMatcher(['/admin(.*)']);
 
+export default clerkMiddleware(async (auth, req) => {
+    const { userId, sessionClaims } = await auth();
+    const path = req.nextUrl.pathname;
+    const role = sessionClaims?.metadata?.role as RoleType;
 
-export default clerkMiddleware(async (auth, request) => {
-    const data = await auth();
-    const path = new URL(request.url).pathname;
+    console.log("User Role (middleware):", role);
 
-    // Skip role check for API routes
-    if (path.startsWith('/api')) {
-        return NextResponse.next();
+    // If not signed in and trying to access protected routes, redirect to home
+    if (!userId && !publicRoutes.includes(path)) {
+        return NextResponse.redirect(new URL("/", req.url));
     }
 
-    // Allow public routes without role check
-    if (publicRoutes.includes(path)) {
-        return NextResponse.next();
-    }
-
-    let role: RoleType = "DEFAULT";
-    
-    if (data.userId) {
-        try {
-            const headers = new Headers();
-            headers.set("Cookie", request.headers.get("cookie") || "");
-            
-            const roleResponse = await fetch(`${request.nextUrl.origin}/api/auth/role`, {
-                headers
-            });
-            
-            if (roleResponse.ok) {
-                const { role: userRole } = await roleResponse.json();
-                role = userRole;
-            }
-        } catch (error) {
-            console.error("Error fetching role in middleware:", error);
+    // If signed in and has role, redirect to appropriate dashboard
+    if (userId && path === "/") {
+        switch (role) {
+            case "DEFAULT":
+                return NextResponse.redirect(new URL("/", req.url));
+            case "ADMIN":
+                return NextResponse.redirect(new URL("/admin-home", req.url));
+            case "CUSTOMER":
+                return NextResponse.redirect(new URL("/customer-home", req.url));
+            case "CANTEEN_OWNER":
+                return NextResponse.redirect(new URL("/canteen-home", req.url));
+            case "DELIVERY_PERSON":
+                return NextResponse.redirect(new URL("/delivery-home", req.url));
+            default:
+                return NextResponse.next();
         }
     }
 
-    if (IsCanteenProtectedRoute(request)) {
-        if (role !== "CANTEEN_OWNER") {
-            return NextResponse.redirect(new URL("/", request.url));
-        }
+    // Protect role-specific routes
+    if (isAdminRoute(req) && role !== "ADMIN") {
+        return NextResponse.redirect(new URL("/", req.url));
     }
 
-    if (IsCustomerProtectedRoute(request)) {
-        if (role !== "CUSTOMER") {
-            return NextResponse.redirect(new URL("/", request.url));
-        }
+    if (IsCanteenProtectedRoute(req) && role !== "CANTEEN_OWNER") {
+        return NextResponse.redirect(new URL("/", req.url));
     }
 
-    if (IsDeliveryProtectedRoute(request)) {
-        if (role !== "DELIVERY_PERSON") {
-            return NextResponse.redirect(new URL("/", request.url));
-        }
+    if (IsCustomerProtectedRoute(req) && role !== "CUSTOMER") {
+        return NextResponse.redirect(new URL("/", req.url));
+    }
+
+    if (IsDeliveryProtectedRoute(req) && role !== "DELIVERY_PERSON") {
+        return NextResponse.redirect(new URL("/", req.url));
     }
 
     return NextResponse.next();
 });
 
 export const config = {
-    matcher: [
-        "/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)",
-        "/(api|trpc)(.*)",
-    ],
+  matcher: [
+    "/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)",
+    "/(api|trpc)(.*)",
+  ],
 };

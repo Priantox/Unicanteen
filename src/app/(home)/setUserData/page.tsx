@@ -14,7 +14,7 @@ model User {
 
 import { currentUser } from '@clerk/nextjs/server';
 import React from 'react'
-import { setUserDataToDB, UserData } from '@/actions/users/setUserData';
+import { setUserDataToDB, UserData } from '@/actions/user/setUserData';
 
 const SetUserDataFromClerkToDB =  async () => {
     const user = await currentUser();

@@ -8,13 +8,13 @@ import {
     TooltipProvider,
     TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { DeliNavItems } from "@/config";
+import { DeliSideItems } from "@/config";
 import { cn } from "@/lib/utils";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { ThemeToggle } from "../theme-toggle";
 
 export default function DeliSideBar() {
-    const navSections = DeliNavItems();
+    const navSections = DeliSideItems();
     const [isSidebarExpanded, setIsSidebarExpanded] = useState(() => {
         if (typeof window !== "undefined") {
             const saved = window.localStorage.getItem("sidebarExpanded");

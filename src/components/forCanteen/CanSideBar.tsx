@@ -10,14 +10,14 @@ import {
     TooltipProvider,
     TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { CanNavItems } from "@/config";
+import { CanSideItems } from "@/config";
 import { cn } from "@/lib/utils";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 import { ThemeToggle } from "../theme-toggle";
 
 export default function CanSideBar() {
-    const navSections = CanNavItems();
+    const navSections = CanSideItems();
     const [isSidebarExpanded, setIsSidebarExpanded] = useState(() => {
         if (typeof window !== "undefined") {
             const saved = window.localStorage.getItem("sidebarExpanded");

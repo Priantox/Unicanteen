@@ -7,6 +7,16 @@ import {
     Languages,
     Star,
     Utensils,
+    Users,
+    UserPlus,
+    ScrollText,
+    Salad,
+    Receipt,
+    MessageCircle,
+    Gift,
+    Package2,
+    PackageCheck,
+    DollarSign
 } from "lucide-react";
 
 export const HomeNavItems = () => {
@@ -92,51 +102,7 @@ export const HomeNavItems = () => {
 };
 
 // Delivery SideBar Items
-export const DeliNavItems = () => {
-    const pathname = usePathname();
-    function isNavItemActive(pathname: string, nav: string) {
-        return pathname.includes(nav);
-    }
-
-    return [
-        {
-            section: "DASHBOARD",
-            items: [
-                {
-                    name: "Orders",
-                    href: "/delivery/orders",
-                    icon: <FileText size={20} />,
-                    active: isNavItemActive(pathname, "/delivery/orders"),
-                },
-                {
-                    name: "Tracking",
-                    href: "/delivery/tracking",
-                    icon: <User size={20} />,
-                    active: isNavItemActive(pathname, "/delivery/tracking"),
-                },
-            ],
-        },
-        {
-            section: "SETTINGS",
-            items: [
-                {
-                    name: "Language",
-                    href: "/language",
-                    icon: <Languages size={20} />,
-                    active: isNavItemActive(pathname, "/language"),
-                },
-                {
-                    name: "Settings",
-                    href: "/settings",
-                    icon: <Settings size={20} />,
-                    active: isNavItemActive(pathname, "/settings"),
-                },
-            ],
-        },
-    ];
-};
-// Customer SideBar Items
-export const CustomerNavItems = () => {
+export const DeliSideItems = () => {
     const pathname = usePathname();
     function isNavItemActive(pathname: string, nav: string) {
         return pathname.includes(nav);
@@ -148,34 +114,164 @@ export const CustomerNavItems = () => {
             items: [
                 {
                     name: "Home",
-                    href: "/customer-home/home",
+                    href: "/delivery-home",
                     icon: <Home size={20} />,
-                    active: pathname === "/customer-home/home",
+                    active: isNavItemActive(pathname, "/delivery-home"),
+                }
+            ],
+        },
+        {
+            section: "Deliveries",
+            items: [
+                {
+                    name: "Ongoing Deliveries",
+                    href: "/delivery-home/ongoing-deliveries",
+                    icon: <Package2 size={20} />,
+                    active: isNavItemActive(pathname, "/delivery-home/ongoing-deliveries"),
                 },
                 {
-                    name: "Orders",
-                    href: "/customer-home/orders",
-                    icon: <FileText size={20} />,
-                    active: isNavItemActive(pathname, "/customer-home/orders"),
+                    name: "Completed Deliveries",
+                    href: "/delivery-home/completed-deliveries",
+                    icon: <PackageCheck size={20} />,
+                    active: isNavItemActive(pathname, "/delivery-home/completed-deliveries"),
                 },
             ],
         },
         {
-            section: "MANAGEMENT",
+            section : "Others",
+            items : [
+                {
+                    name: "Earnings",
+                    href: "/delivery-home/earnings",
+                    icon: <DollarSign size={20} />,
+                    active: isNavItemActive(pathname, "/delivery-home/earnings"),
+                },
+                {
+                    name: "Messages",
+                    href: "/delivery-home/messages",
+                    icon: <MessageCircle size={20} />,
+                    active: isNavItemActive(pathname, "/delivery-home/messages"),
+                },
+                {
+                    name: "Reviews",
+                    href: "/delivery-home/reviews",
+                    icon: <User size={20} />,
+                    active: isNavItemActive(pathname, "/delivery-home/reviews"),
+                },
+                {
+                    name: "Reports",
+                    href: "/delivery-home/reports",
+                    icon: <FileText size={20} />,
+                    active: isNavItemActive(pathname, "/delivery-home/reports"),
+                }
+            ]
+        },
+        {
+            section: "SETTINGS",
             items: [
                 {
-                    name: "Menu",
-                    href: "/customer-home/menu",
-                    icon: <Utensils size={20} />,
-                    active: isNavItemActive(pathname, "/customer-home/menu"),
+                    name: "Language",
+                    href: "/delivery-home/language",
+                    icon: <Languages size={20} />,
+                    active: isNavItemActive(pathname, "/delivery-home/language"),
+                },
+                {
+                    name: "Settings",
+                    href: "/delivery-home/settings",
+                    icon: <Settings size={20} />,
+                    active: isNavItemActive(pathname, "/delivery-home/settings"),
+                },
+            ],
+        },
+    ];
+};
+// Customer SideBar Items
+export const CustomerSideItems = () => {
+    const pathname = usePathname();
+    function isNavItemActive(pathname: string, nav: string) {
+        return pathname.includes(nav);
+    }
+
+    return [
+        {
+            section: "DASHBOARD",
+            items: [
+                {
+                    name: "Home",
+                    href: "/customer-home/",
+                    icon: <Home size={20} />,
+                    active: pathname === "/customer-home/",
                 },
                 {
                     name: "Reviews",
                     href: "/customer-home/reviews",
                     icon: <User size={20} />,
                     active: isNavItemActive(pathname, "/customer-home/reviews"),
+                }
+            ],
+        },
+        {
+            section : "Canteens",
+            items : [
+                {
+                    name: "Olympia Cafe",
+                    href: "/customer-home/olympia-cafe",
+                    icon: <Home size={20} />,
+                    active: isNavItemActive(pathname, "/customer-home/olympia-cafe"),
+                },
+                {
+                    name: "Khans Kitchen",
+                    href: "/customer-home/khans-kitchen",
+                    icon: <Home size={20} />,
+                    active: isNavItemActive(pathname, "/customer-home/khans-kitchen"),
+                },
+                {
+                    name: "Neptune Cafe",
+                    href: "/customer-home/neptune-cafe",
+                    icon: <Home size={20} />,
+                    active: isNavItemActive(pathname, "/customer-home/neptune-cafe"),
+                }
+            ]
+        },
+        {
+            section: "Orders",
+            items: [
+                {
+                    name: "Ongoing Orders",
+                    href: "/customer-home/orders/ongoing",
+                    icon: <Utensils size={20} />,
+                    active: isNavItemActive(pathname, "/customer-home/orders/ongoing"),
+                },
+                {
+                    name: "Completed Orders",
+                    href: "/customer-home/orders/completed",
+                    icon: <Utensils size={20} />,
+                    active: isNavItemActive(pathname, "/customer-home/orders/completed"),
                 },
             ],
+        },
+        {
+            section : "Others",
+            items: [
+                {
+                    name: "Messages",
+                    href: "/customer-home/messages",
+                    icon: <MessageCircle size={20} />,
+                    active: isNavItemActive(pathname, "/customer-home/messages"),
+                },
+                {
+                    name: "Vouchers",
+                    href: "/customer-home/vouchers",
+                    icon: <Gift size={20} />,
+                    active: isNavItemActive(pathname, "/customer-home/vouchers"),
+                },
+                {
+                    name: "Reports",
+                    href: "/customer-home/reports",
+                    icon: <FileText size={20} />,
+                    active: isNavItemActive(pathname, "/customer-home/reports"),
+                }
+            ]
         },
         {
             section: "SETTINGS",
@@ -199,7 +295,7 @@ export const CustomerNavItems = () => {
 
 
 // Canteen SideBar Items
-export const CanNavItems = () => {
+export const CanSideItems = () => {
     const pathname = usePathname();
 
     function isNavItemActive(pathname: string, nav: string) {
@@ -217,29 +313,93 @@ export const CanNavItems = () => {
                     active: pathname === "/canteen-home",
                 },
                 {
-                    name: "Orders",
-                    href: "/canteen-home/orders",
-                    icon: <FileText size={20} />,
-                    active: isNavItemActive(pathname, "/canteen-home/orders"),
-                },
-            ],
-        },
-        {
-            section: "MANAGEMENT",
-            items: [
-                {
-                    name: "Menu",
-                    href: "/canteen-home/menu",
-                    icon: <Utensils size={20} />,
-                    active: isNavItemActive(pathname, "/canteen-home/menu"),
-                },
-                {
                     name: "Reviews",
                     href: "/canteen-home/reviews",
                     icon: <User size={20} />,
                     active: isNavItemActive(pathname, "/canteen-home/reviews"),
+                }
+            ],
+        },
+        {
+            section : "Food Items",
+            items : [
+                {
+                    name: "Current Foods",
+                    href: "/canteen-home/food-items/current-foods",
+                    icon: <Salad size={20} />,
+                    active: isNavItemActive(pathname, "/canteen-home/current-foods"),
+                },
+                {
+                    name: "Add Food",
+                    href: "/canteen-home/food-items/add-food",
+                    icon: <Salad size={20} />,
+                    active: isNavItemActive(pathname, "/canteen-home/food-items/add-food"),
+                },
+                {
+                    name: "Food Availability",
+                    href: "/canteen-home/food-items/food-availability",
+                    icon: <Salad size={20} />,
+                    active: isNavItemActive(pathname, "/canteen-home/food-items/food-availability"),
+                }
+            ]
+        },
+        {
+            section: "Orders",
+            items: [
+                {
+                    name: "All Orders",
+                    href: "/canteen-home/orders",
+                    icon: <ScrollText size={20} />,
+                    active: isNavItemActive(pathname, "/canteen-home/orders"),
+                },
+                {
+                    name: "Pending Orders",
+                    href: "/canteen-home/orders/pending",
+                    icon: <ScrollText size={20} />,
+                    active: isNavItemActive(pathname, "/canteen-home/orders/pending"),
+                },
+                {
+                    name: "Completed Orders",
+                    href: "/canteen-home/orders/completed",
+                    icon: <ScrollText size={20} />,
+                    active: isNavItemActive(pathname, "/canteen-home/orders/completed"),
                 },
             ],
+        },
+        {
+            section: "Staff Management",
+            items: [
+                {
+                    name: "Staffs List",
+                    href: "/canteen-home/staffs",
+                    icon: <Users size={20} />,
+                    active: isNavItemActive(pathname, "/canteen-home/staffs"),
+                },
+                {
+                    name: "Add Staff",
+                    href: "/canteen-home/staffs/add-staffs",
+                    icon: <UserPlus size={20} />,
+                    active: isNavItemActive(pathname, "/canteen-home/staffs/add-staffs"),
+                }
+            ]
+
+        },
+        {
+            section: "Others",
+            items: [
+                {
+                    name: "Delivery-Persons",
+                    href: "/canteen-home/delivery-persons",
+                    icon: <Users size={20} />,
+                    active: isNavItemActive(pathname, "/canteen-home/delivery-persons"),
+                },
+                {
+                    name: "Reports",
+                    href: "/canteen-home/reports",
+                    icon: <Receipt size={20} />,
+                    active: isNavItemActive(pathname, "/canteen-home/reports"),
+                }
+            ]
         },
         {
             section: "SETTINGS",
