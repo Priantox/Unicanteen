@@ -2,7 +2,7 @@ import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 import { RoleType } from "./types/roles";
 
-const publicRoutes = ["/", "/sign-in", "/sign-up","/olympia-cafe","/neptune-cafe","/khans-kitchen"];
+const publicRoutes = ["/", "/sign-in", "/sign-up","/olympia-cafe","/neptune-cafe","/khans-kitchen","/api/clerk/role", "/api/auth/role"];
 const IsCanteenProtectedRoute = createRouteMatcher(["/canteen(.*)"]);
 const IsCustomerProtectedRoute = createRouteMatcher(["/customer(.*)"]);
 const IsDeliveryProtectedRoute = createRouteMatcher(["/delivery(.*)"]);
@@ -11,7 +11,7 @@ const isAdminRoute = createRouteMatcher(['/admin(.*)']);
 export default clerkMiddleware(async (auth, req) => {
     const { userId, sessionClaims } = await auth();
     const path = req.nextUrl.pathname;
-    const role = sessionClaims?.metadata?.role as RoleType;
+    const role = sessionClaims?.metadata?.role as RoleType || "DEFAULT";
 
     console.log("User Role (middleware):", role);
 

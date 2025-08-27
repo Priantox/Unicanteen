@@ -5,35 +5,39 @@ import Link from "next/link";
 import { ChevronLeft, ChevronRight, Star, Utensils } from "lucide-react";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
-// import { useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 const Home = () => {
 
+    const router = useRouter();
+    useEffect(() => {
+        const handleRedirect = async () => {
+            try {
+                const res = await fetch("/api/clerk/role");
+                const data = await res.json();
 
-    // const router = useRouter();
-    // useEffect(() => {
+                const role = data.role;
+                console.log("Role Data on Home Page cc:", role);
 
-    //     const checkAndRedirect = async () => {
-    //         try {
-    //             const response = await fetch('/api/auth/role');
-    //             const data = await response.json();
-    //             console.log("Role from API in Home:", data.role);
-                
-    //             if (data.role === "CUSTOMER") {
-    //                 router.push("/customer-home");
-    //             } else if (data.role === "CANTEEN_OWNER") {
-    //                 router.push("/canteen-home");
-    //             } else if (data.role === "DELIVERY_PERSON") {
-    //                 router.push("/delivery-home");
-    //             }
-    //         } catch (error) {
-    //             console.error("Error fetching role:", error);
-    //         }
-    //     };
+                if (role === "CUSTOMER") {
+                    router.push("/customer-home");
+                } else if (role === "CANTEEN_OWNER") {
+                    router.push("/canteen-home");
+                } else if (role === "DELIVERY_PERSON") {
+                    router.push("/delivery-home");
+                }
+                else if (role === "ADMIN") {
+                    router.push("/admin-home");
+                } else {
+                    router.push("/");
+                }
+            } catch (error) {
+                console.error("Error checking role:", error);
+            }
+        };
 
-    //     checkAndRedirect();
-    // // eslint-disable-next-line react-hooks/exhaustive-deps
-    // }, []); // No error bruh
+        handleRedirect();
+    }, []); // each time
 
     const [emblaRef, emblaApi] = useEmblaCarousel(
         {
