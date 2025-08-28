@@ -8,9 +8,7 @@ export async function GET() {
         const { userId } = await auth();
         
         if (!userId) {
-            return NextResponse.json(
-                { role: "DEFAULT" }
-            );
+            return NextResponse.json({ role: "DEFAULT" });
         }
 
         // Check roles in order of hierarchy

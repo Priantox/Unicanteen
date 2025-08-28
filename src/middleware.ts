@@ -2,7 +2,7 @@ import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 import { RoleType } from "./types/roles";
 
-const publicRoutes = ["/", "/sign-in", "/sign-up","/olympia-cafe","/neptune-cafe","/khans-kitchen","/api(.*)"];
+const publicRoutes = createRouteMatcher(["/", "/sign-in", "/sign-up","/olympia-cafe","/neptune-cafe","/khans-kitchen","/api(.*)"]);
 const IsCanteenProtectedRoute = createRouteMatcher(["/canteen(.*)"]);
 const IsCustomerProtectedRoute = createRouteMatcher(["/customer(.*)"]);
 const IsDeliveryProtectedRoute = createRouteMatcher(["/delivery(.*)"]);
@@ -16,7 +16,7 @@ export default clerkMiddleware(async (auth, req) => {
     console.log("User Role (middleware):", role);
 
     // If not signed in and trying to access protected routes, redirect to home
-    if (!userId && !publicRoutes.includes(path)) {
+    if (!userId && !publicRoutes(req)) {
         return NextResponse.redirect(new URL("/", req.url));
     }
 
