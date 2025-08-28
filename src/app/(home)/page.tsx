@@ -37,6 +37,7 @@ const Home = () => {
         };
 
         handleRedirect();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []); // each time
 
     const [emblaRef, emblaApi] = useEmblaCarousel(

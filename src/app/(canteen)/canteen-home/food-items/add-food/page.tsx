@@ -55,7 +55,7 @@ export default function AddFoodPage() {
         throw new Error(await response.text());
       }
 
-      router.push("/canteen-home/food-items");
+      router.push("/canteen-home/food-items/current-foods");
       router.refresh();
     } catch (err) {
       setError(err instanceof Error ? err.message : "Failed to add food item");

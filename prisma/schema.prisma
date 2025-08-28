@@ -36,12 +36,12 @@ enum CanteenName {
 }
 
 model Canteen {
-  id            String   @id
+  id            String      @id
   name          CanteenName
   canteen_image String?
   ownerId       String
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
 
   owner       User             @relation(fields: [ownerId], references: [id])
   reviews     CanteenReviews[]
@@ -65,20 +65,21 @@ enum FoodCategory {
 }
 
 model CanteenFood {
-  id          String   @id @default(cuid())
-  canteenId   String
-  name        String
-  price       Float
-  image       String?
-  rating      Float
-  description String?
-  availability Boolean @default(true)
-  stocks      Int      @default(10)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id           String   @id @default(cuid())
+  canteenId    String
+  name         String
+  price        Float
+  image        String?
+  rating       Float
+  description  String?
+  availability Boolean  @default(true)
+  stocks       Int      @default(10)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
 
-  category    FoodCategory[]
-  canteen     Canteen @relation(fields: [canteenId], references: [id])
+  category FoodCategory[]
+  canteen  Canteen        @relation(fields: [canteenId], references: [id])
+  featuredItems FeaturedItems[]
 }
 
 model CanteenReviews {
@@ -100,3 +101,15 @@ model Customer {
 
   user User @relation(fields: [userId], references: [id])
 }
+
+model FeaturedItems {
+  id          String      @id @default(cuid())
+  bannerImage String?
+  isFeatured  Boolean     @default(false)
+  foodId      String
+  food        CanteenFood @relation(fields: [foodId], references: [id])
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+}
+
+
