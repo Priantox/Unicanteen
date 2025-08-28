@@ -325,9 +325,9 @@ export const CanSideItems = () => {
             items : [
                 {
                     name: "Current Foods",
-                    href: "/canteen-home/food-items/current-foods",
+                    href: "/canteen-home/food-items/",
                     icon: <Salad size={20} />,
-                    active: isNavItemActive(pathname, "/canteen-home/current-foods"),
+                    active: isNavItemActive(pathname, "/canteen-home/food-items/"),
                 },
                 {
                     name: "Add Food",
