@@ -48,8 +48,25 @@ model Canteen {
   CanteenFood CanteenFood[]
 }
 
+enum FoodCategory {
+  POPULAR
+  BREAKFAST
+  LUNCH
+  DINNER
+  FAST_FOOD
+  DESSERT
+  BEVERAGE
+  SNACK
+  RICE_ITEMS
+  DRINKS
+  PACKET_ITEMS
+  OTHERS
+  MEAT_ITEMS
+}
+
 model CanteenFood {
-  canteenId   String   @id
+  id          String   @id @default(cuid())
+  canteenId   String
   name        String
   price       Float
   image       String?
@@ -60,7 +77,8 @@ model CanteenFood {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
-  canteen Canteen @relation(fields: [canteenId], references: [id])
+  category    FoodCategory[]
+  canteen     Canteen @relation(fields: [canteenId], references: [id])
 }
 
 model CanteenReviews {

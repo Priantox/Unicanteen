@@ -24,10 +24,14 @@ export async function POST(req: Request) {
         // Create food item
         const foodItem = await prisma.canteenFood.create({
             data: {
+                id: data.id,
                 canteenId: canteen.id,
                 name: data.name,
                 price: data.price,
                 description: data.description,
+                category: {
+                    set: data.category
+                },
                 image: data.image,
                 rating: 0,
                 stocks: data.stocks,

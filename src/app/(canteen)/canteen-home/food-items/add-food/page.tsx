@@ -3,6 +3,22 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
+const FOOD_CATEGORIES = [
+  "POPULAR",
+  "BREAKFAST",
+  "LUNCH",
+  "DINNER",
+  "FAST_FOOD",
+  "DESSERT",
+  "BEVERAGE",
+  "SNACK",
+  "RICE_ITEMS",
+  "DRINKS",
+  "PACKET_ITEMS",
+  "OTHERS",
+  "MEAT_ITEMS",
+];
+
 export default function AddFoodPage() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
@@ -13,14 +29,18 @@ export default function AddFoodPage() {
     setError(null);
 
     try {
+      // Get all selected categories as an array
+      const categories = formData.getAll("category");
+
       const foodData = {
         name: formData.get("name"),
         price: parseFloat(formData.get("price") as string),
         description: formData.get("description"),
         image: formData.get("image"),
-        rating: 0, // Default rating for new items
+        rating: 0,
         stocks: parseInt(formData.get("stocks") as string),
         availability: formData.get("availability") === "true",
+        category: categories, // array for multi-select
       };
 
       const response = await fetch("/api/canteen-home/add-food", {
@@ -124,6 +144,29 @@ export default function AddFoodPage() {
             required
             className="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-blue-500"
           />
+        </div>
+
+        <div>
+          <label htmlFor="category" className="block text-sm font-medium mb-2">
+            Food Category *
+          </label>
+          <select
+            id="category"
+            name="category"
+            multiple
+            required
+            className="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-blue-500"
+            style={{ height: "160px" }}
+          >
+            {FOOD_CATEGORIES.map((cat) => (
+              <option key={cat} value={cat}>
+                {cat.replace(/_/g, " ")}
+              </option>
+            ))}
+          </select>
+          <p className="text-xs text-gray-500 mt-1">
+            Hold Ctrl (Windows) or Cmd (Mac) to select multiple categories.
+          </p>
         </div>
 
         <div>

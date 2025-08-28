@@ -15,13 +15,17 @@ model CanteenFood {
 }
 */
 
+import { FoodCategory } from "@prisma/client";
+
 export interface CanteenFood {
+  id: string;
   canteenId: string;
   name: string;
   price: number;
   image?: string;
   rating: number;
   description?: string;
+  category: FoodCategory[];
   availability: boolean;
   stocks: number;
   createdAt: Date;
