@@ -177,7 +177,9 @@ const KhansKitchenPage = () => {
                                     <span>★</span>
                                     <span>{food.rating ?? "5.0"}</span>
                                 </div>
-                                <button className="bg-blue-500 text-white px-4 py-1 rounded-full text-sm font-semibold hover:bg-blue-600 transition">
+                                <button className="bg-blue-500 text-white px-4 py-1 rounded-full text-sm font-semibold hover:bg-blue-600 transition"
+                                    disabled={!food.availability || food.stocks === 0}
+                                >
                                     + Add Product
                                 </button>
                             </div>

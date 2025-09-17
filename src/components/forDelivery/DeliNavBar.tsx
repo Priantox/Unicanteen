@@ -1,75 +1,85 @@
 "use client";
 
-import { UserButton } from "@clerk/nextjs";
-import { Bell, Package, MapPin } from "lucide-react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import React from "react";
+import Image from "next/image";
 
-export default function DeliNavBar() {
-    const pathname = usePathname();
+// Notification Icon add
+import { BellIcon } from "@heroicons/react/24/outline";
+import {
+    SignedIn,
+    SignedOut,
+    SignInButton,
+    SignUpButton,
+    UserButton,
+} from "@clerk/nextjs";
 
+const DeliNavBar = () => {
     return (
-        <nav className="bg-white dark:bg-gray-800 border-b">
-            <div className="mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="flex items-center justify-between h-16">
-                    {/* Logo and Brand */}
-                    <div className="flex items-center">
-                        <Link 
-                            href="/delivery" 
-                            className="text-xl font-bold text-gray-800 dark:text-white"
-                        >
-                            UniCanteen Delivery
-                        </Link>
-                    </div>
+        <header className="flex justify-between p-2 bg-amber-100 h-20">
+            <Link href="/">
+                <Image
+                    src="/UniCanteen_L.png"
+                    alt="UniCanteen Logo"
+                    className="object-cover h-20"
+                    width={300}
+                    height={5}
+                />
+            </Link>
 
-                    {/* Navigation Links */}
-                    <div className="hidden md:flex items-center space-x-4">
+            <nav className="flex items-center">
+                {/* Delivery Navigation Links */}
+                <ul className="hidden md:flex gap-2 mr-4">
+                    <li>
                         <Link
                             href="/delivery-home/active-orders"
-                            className={`px-3 py-2 rounded-md text-sm font-medium ${
-                                pathname === '/delivery/active-orders'
-                                    ? 'bg-gray-900 text-white'
-                                    : 'text-gray-600 hover:bg-gray-700 hover:text-white'
-                            }`}
+                            className="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:bg-amber-200"
                         >
-                            <Package className="w-5 h-5 inline-block mr-1" />
                             Active Orders
                         </Link>
+                    </li>
+                    <li>
                         <Link
                             href="/delivery-home/tracking"
-                            className={`px-3 py-2 rounded-md text-sm font-medium ${
-                                pathname === '/delivery/tracking'
-                                    ? 'bg-gray-900 text-white'
-                                    : 'text-gray-600 hover:bg-gray-700 hover:text-white'
-                            }`}
+                            className="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:bg-amber-200"
                         >
-                            <MapPin className="w-5 h-5 inline-block mr-1" />
                             Live Tracking
                         </Link>
-                    </div>
+                    </li>
+                </ul>
 
-                    {/* Right Side Items */}
-                    <div className="flex items-center space-x-4">
-                        {/* Notifications */}
-                        <button className="relative p-2 text-gray-600 hover:text-gray-800 dark:text-gray-300 dark:hover:text-white">
-                            <Bell className="w-6 h-6" />
-                            <span className="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white transform translate-x-1/2 -translate-y-1/2 bg-red-600 rounded-full">
-                                3
-                            </span>
-                        </button>
-
-                        {/* User Profile Button */}
-                        <UserButton 
-                            afterSignOutUrl="/sign-in"
-                            appearance={{
-                                elements: {
-                                    avatarBox: "w-8 h-8"
-                                }
-                            }}
-                        />
-                    </div>
-                </div>
-            </div>
-        </nav>
+                <BellIcon className="text-red-700 mr-4 border rounded-full h-10 w-10 p-1 " />
+                <ul className="flex gap-4">
+                    <li>
+                        <SignedOut>
+                            <SignInButton mode="modal">
+                                <button className="signBtn">Sign In</button>
+                            </SignInButton>
+                        </SignedOut>
+                    </li>
+                    <li>
+                        <SignedOut>
+                            <SignUpButton mode="modal">
+                                <button className="signBtn">Sign Up</button>
+                            </SignUpButton>
+                        </SignedOut>
+                    </li>
+                    <li>
+                        <SignedIn>
+                            <UserButton
+                                appearance={{
+                                    elements: {
+                                        userButtonAvatarBox: "h-48 w-48",
+                                    },
+                                }}
+                                showName={true}
+                            />
+                        </SignedIn>
+                    </li>
+                </ul>
+            </nav>
+        </header>
     );
-}
+};
+
+export default DeliNavBar;

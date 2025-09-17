@@ -48,19 +48,3 @@ export async function POST(req: Request) {
         );
     }
 }
-
-// import prisma from "@/lib/prisma";
-// import { CanteenFood } from "@prisma/client";
-// import { NextResponse } from "next/server";
-
-
-// export async function POST(request: Request) {
-//     const food : CanteenFood = await request.json();
-
-//     const canteenFood = await prisma.canteenFood.create({
-//         data: food
-//     });
-
-//     return NextResponse.json(canteenFood);
-// }
-// // /api/canteen-home/add-food

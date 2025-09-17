@@ -20,22 +20,21 @@ import React, { useEffect, useRef, useState } from "react";
 //     "MEAT_ITEMS",
 // ];
 
-
 import { FoodCategory } from "@prisma/client";
 const FOOD_CATEGORIES: FoodCategory[] = [
-  "POPULAR",
-  "BREAKFAST",
-  "LUNCH",
-  "DINNER",
-  "FAST_FOOD",
-  "DESSERT",
-  "BEVERAGE",
-  "SNACK",
-  "RICE_ITEMS",
-  "DRINKS",
-  "PACKET_ITEMS",
-  "OTHERS",
-  "MEAT_ITEMS",
+    "POPULAR",
+    "BREAKFAST",
+    "LUNCH",
+    "DINNER",
+    "FAST_FOOD",
+    "DESSERT",
+    "BEVERAGE",
+    "SNACK",
+    "RICE_ITEMS",
+    "DRINKS",
+    "PACKET_ITEMS",
+    "OTHERS",
+    "MEAT_ITEMS",
 ];
 
 type FilterType = FoodCategory | "ALL";
@@ -84,7 +83,7 @@ const FoodAvailabilityPage = () => {
                 <select
                     id="category-filter"
                     value={filter}
-                    onChange={(e) => setFilter(e.target.value as FilterType )}
+                    onChange={(e) => setFilter(e.target.value as FilterType)}
                     className="px-3 py-2 border rounded-md focus:ring-2 focus:ring-blue-500"
                 >
                     <option value="ALL">All</option>

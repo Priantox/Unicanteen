@@ -17,8 +17,13 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  canteens Canteen[]
-  Customer Customer?
+  canteens        Canteen[]
+  Customer        Customer?
+  DeliveryProfile DeliveryProfile?
+
+  // relations with Order
+  ordersPlaced Order[] @relation("CustomerOrders") // user as customer
+  deliveries   Order[] @relation("OrderDeliveryMan") // user as delivery person
 }
 
 enum RoleType {
@@ -46,6 +51,8 @@ model Canteen {
   owner       User             @relation(fields: [ownerId], references: [id])
   reviews     CanteenReviews[]
   CanteenFood CanteenFood[]
+
+  orders Order[]
 }
 
 enum FoodCategory {
@@ -77,8 +84,8 @@ model CanteenFood {
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 
-  category FoodCategory[]
-  canteen  Canteen        @relation(fields: [canteenId], references: [id])
+  category      FoodCategory[]
+  canteen       Canteen         @relation(fields: [canteenId], references: [id])
   featuredItems FeaturedItems[]
 }
 
@@ -112,4 +119,59 @@ model FeaturedItems {
   updatedAt   DateTime    @updatedAt
 }
 
+enum WeekDay {
+  MONDAY
+  TUESDAY
+  WEDNESDAY
+  THURSDAY
+  FRIDAY
+  SATURDAY
+  SUNDAY
+}
 
+enum OrderStatus {
+  PENDING
+  ACCEPTED
+  IN_PROGRESS
+  DELIVERED
+  CANCELLED
+}
+
+model DeliveryProfile {
+  id          String  @id @default(cuid())
+  userId      String  @unique
+  isAvailable Boolean @default(false) // delivery ON/OFF button
+  rating      Float? // avg rating from deliveries
+  completed   Int     @default(0)
+  cancelled   Int     @default(0)
+
+  user      User               @relation(fields: [userId], references: [id])
+  timeSlots DeliveryTimeSlot[]
+}
+
+model DeliveryTimeSlot {
+  id         String   @id @default(cuid())
+  deliveryId String
+  dayOfWeek  WeekDay
+  startTime  DateTime
+  endTime    DateTime
+
+  delivery DeliveryProfile @relation(fields: [deliveryId], references: [id])
+}
+
+model Order {
+  id         String      @id @default(cuid())
+  customerId String
+  canteenId  String
+  foodItems  Json
+  status     OrderStatus @default(PENDING)
+  totalPrice Float
+  assignedTo String?
+  deliveryAt DateTime?
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+
+  customer    User    @relation("CustomerOrders", fields: [customerId], references: [id])
+  canteen     Canteen @relation(fields: [canteenId], references: [id])
+  deliveryMan User?   @relation("OrderDeliveryMan", fields: [assignedTo], references: [id])
+}

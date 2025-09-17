@@ -11,7 +11,7 @@ const isAdminRoute = createRouteMatcher(['/admin(.*)']);
 export default clerkMiddleware(async (auth, req) => {
     const { userId, sessionClaims } = await auth();
     const path = req.nextUrl.pathname;
-    const role = sessionClaims?.metadata?.role as RoleType || "DEFAULT";
+    const role = sessionClaims?.metadata?.role as RoleType || "CUSTOMER";
 
     console.log("User Role (middleware):", role);
 

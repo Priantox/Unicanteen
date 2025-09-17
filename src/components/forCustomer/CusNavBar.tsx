@@ -6,7 +6,7 @@ import { Bell, Search, ShoppingCart } from "lucide-react";
 
 export default function CusNavBar() {
     return (
-        <nav className="bg-white dark:bg-gray-800 border-b">
+        <nav className="bg-white dark:bg-gray-800 border-b h-20">
             <div className="mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex items-center justify-between h-16">
                     {/* Logo and Brand */}
@@ -22,7 +22,7 @@ export default function CusNavBar() {
                     {/* Right Side Items */}
                     <div className="flex items-center space-x-4">
                         {/* Cart */}
-                        <Link href="/customer/cart" className="relative">
+                        <Link href="/customer-home/cart" className="relative">
                             <ShoppingCart className="h-6 w-6 text-gray-600 dark:text-gray-300" />
                             <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
                                 2

@@ -13,7 +13,7 @@ import {
 
 const CanNavBar = () => {
     return (
-        <header className="flex justify-between p-4 bg-amber-100">
+        <header className="flex justify-between p-4 bg-amber-100 h-20">
             <div className="text-2xl font-bold py-1">
                 <Link href="/">UNICANTEEN LOGO</Link>
             </div>

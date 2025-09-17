@@ -82,7 +82,7 @@ const Home = () => {
   const canteens: Canteen[] = [
     {
       name: "Olympia Cafe",
-      image: "/images/olympia.jpg",
+      image: "https://i.ibb.co.com/N29Lm2CS/olympia.png",
       location: "North Campus",
       rating: "4.5",
       href: "/olympia-cafe",
@@ -90,7 +90,7 @@ const Home = () => {
     },
     {
       name: "Khans Kitchen",
-      image: "/images/khans.jpg",
+      image: "https://i.ibb.co.com/00kZFSW/khans.png",
       location: "South Campus",
       rating: "4.3",
       href: "/khans-kitchen",
@@ -98,7 +98,7 @@ const Home = () => {
     },
     {
       name: "Neptune Cafe",
-      image: "/images/neptune.jpg",
+      image: "https://i.ibb.co.com/zhHLwb0x/neptune.png",
       location: "East Campus",
       rating: "4.4",
       href: "/neptune-cafe",
@@ -236,16 +236,4 @@ const Home = () => {
   );
 };
 
-export default Home;
-
-// import React from "react";
-
-// const Home = () => {
-//     return (
-//         <div>
-//             <h1 className="mt-10"> Welcome to UniCanteen ; Developed via @parvezhossainme </h1>
-//         </div>
-//     );
-// };
-
-// export default Home;
+export default Home
