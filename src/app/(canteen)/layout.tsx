@@ -35,6 +35,7 @@ export default function canteenLayout({
                             {children}
                         </main>
                     </div>
+
                 </body>
             </html>
         </ClerkProvider>
