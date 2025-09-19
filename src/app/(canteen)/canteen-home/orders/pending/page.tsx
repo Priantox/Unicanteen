@@ -1,10 +1,8 @@
-// app/orders/page.tsx (Next.js App Router)
-// or pages/orders.tsx (Next.js Pages Router)
-
 "use client";
 
 import Image from "next/image";
 import { MoreVertical, Search, Filter, Download } from "lucide-react";
+import { useState } from "react";
 
 const orders = [
   {
@@ -88,13 +86,15 @@ const statusColors: Record<string, string> = {
 };
 
 export default function OrdersPage() {
+  const [activeTab, setActiveTab] = useState("All");
+
   return (
     <div className="p-4 sm:p-6">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 gap-3">
         <span className="bg-amber-400 w-2 h-7 rounded-1.5xl"></span>
         <h2 className="text-lg font-semibold ml-[-1100px]">
-            Pending Orders
+          Pending Orders
         </h2>
         <div className="flex justify-center items-center gap-2">
           <div className="flex items-center gap-2 ml-auto">
@@ -115,18 +115,40 @@ export default function OrdersPage() {
           </div>
         </div>
       </div>
+
       {/* 3 BUTTONS */}
       <div className="flex items-center gap-2 mb-4">
-            <button className="px-3 py-1.5 border rounded-lg bg-yellow-100 text-yellow-700 font-medium">
-              All
-            </button>
-            <button className="px-3 py-1.5 rounded-lg border text-gray-600">
-              Being Prepared
-            </button>
-            <button className="px-3 py-1.5 rounded-lg border text-gray-600">
-              On The Way
-            </button>
-          </div>
+        <button
+          onClick={() => setActiveTab("All")}
+          className={`px-3 py-1.5 border rounded-lg font-medium ${
+            activeTab === "All"
+              ? "bg-yellow-100 text-yellow-700"
+              : "text-gray-600"
+          }`}
+        >
+          All
+        </button>
+        <button
+          onClick={() => setActiveTab("Being Prepared")}
+          className={`px-3 py-1.5 border rounded-lg ${
+            activeTab === "Being Prepared"
+              ? "bg-yellow-100 text-yellow-700 font-medium"
+              : "text-gray-600"
+          }`}
+        >
+          Being Prepared
+        </button>
+        <button
+          onClick={() => setActiveTab("On The Way")}
+          className={`px-3 py-1.5 border rounded-lg ${
+            activeTab === "On The Way"
+              ? "bg-yellow-100 text-yellow-700 font-medium"
+              : "text-gray-600"
+          }`}
+        >
+          On The Way
+        </button>
+      </div>
 
       {/* Table */}
       <div className="overflow-x-auto bg-white rounded-xl shadow">
@@ -169,8 +191,9 @@ export default function OrdersPage() {
                 </td>
                 <td className="px-4 py-3">{order.price}</td>
                 <td
-                  className={`px-4 py-3 font-medium ${statusColors[order.status]
-                    }`}
+                  className={`px-4 py-3 font-medium ${
+                    statusColors[order.status]
+                  }`}
                 >
                   {order.status}
                 </td>
